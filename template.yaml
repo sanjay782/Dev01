@@ -1,0 +1,1 @@
+az group create --name rg-maze-prod-Kodi --location uksouth
