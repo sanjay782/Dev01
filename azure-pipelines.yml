@@ -1,8 +1,11 @@
 trigger:
 - main   # or your branch name
 
-pool:
-  vmImage: 'ubuntu-latest'
+
+pool:  
+  name: local 
+
+
 
 variables:
   azureSubscription: 'KodiLimitedServiceConnection'   # replace with your Azure DevOps service connection name
