@@ -12,7 +12,7 @@ variables:
   resourceGroupName: 'rg-maze-prod-$(customerName)'
   location: 'eastus'
   customerName: 'Kodi'   # override at runtime if needed
-  ## templateFile: 'template.yaml'          # path to your ARM YAML template
+  templateFile: 'template.json'          # path to your ARM YAML template
 
 stages:
 - stage: DeployInfrastructure
