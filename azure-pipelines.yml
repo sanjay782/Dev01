@@ -33,4 +33,3 @@ steps:
             dbAdminUsername=$(dbAdminUsername) \
             dbAdminPassword=$(dbAdminPassword) \
             location=$(location)
-    displayName: 'Deploy ARM template'
