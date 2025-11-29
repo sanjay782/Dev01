@@ -10,7 +10,7 @@ pool:
 variables:
   azureSubscription: 'KodiLimitedServiceConnection'   # replace with your Azure DevOps service connection name
   resourceGroupName: 'rg-maze-prod-$(customerName)'
-  location: 'uksouth'
+  location: 'eastus'
   customerName: 'Kodi'   # override at runtime if needed
   ## templateFile: 'template.yaml'          # path to your ARM YAML template
 
