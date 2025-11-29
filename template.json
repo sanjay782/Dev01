@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "webAppName1": { "type": "string" },
+    "webAppName2": { "type": "string" },
+    "location": { "type": "string", "defaultValue": "eastus" },
+    "dbServerName": { "type": "string" },
+    "dbAdminUsername": { "type": "string" },
+    "dbAdminPassword": { "type": "securestring" }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2022-03-01",
+      "name": "AppServicePlanB2",
+      "location": "[parameters('location')]",
+      "sku": { "name": "B2", "tier": "Basic" },
+      "properties": { "reserved": false }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2022-03-01",
+      "name": "[parameters('webAppName1')]",
+      "location": "[parameters('location')]",
+      "dependsOn": ["AppServicePlanB2"],
+      "properties": { "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'AppServicePlanB2')]" }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2022-03-01",
+      "name": "[parameters('webAppName2')]",
+      "location": "[parameters('location')]",
+      "dependsOn": ["AppServicePlanB2"],
+      "properties": { "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'AppServicePlanB2')]" }
+    },
+    {
+      "type": "Microsoft.DBforPostgreSQL/flexibleServers",
+      "apiVersion": "2021-06-01",
+      "name": "[parameters('dbServerName')]",
+      "location": "[parameters('location')]",
+      "sku": { "name": "B1", "tier": "Basic" },
+      "properties": {
+        "administratorLogin": "[parameters('dbAdminUsername')]",
+        "administratorLoginPassword": "[parameters('dbAdminPassword')]",
+        "version": "13",
+        "storage": { "storageSizeGB": 32 }
+      }
+    }
+  ]
+}
