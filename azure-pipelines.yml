@@ -1,30 +1,36 @@
-name: Azure Resource Deployment
+trigger:
+- main
 
-on:
-  workflow_dispatch:
+variables:
+  webAppName1: 'mywebapp1'
+  webAppName2: 'mywebapp2'
+  dbServerName: 'myflexdb1'
+  dbAdminUsername: 'dbadminuser'
+  dbAdminPassword: '$(dbAdminPassword)' # secret variable in DevOps
+  resourceGroupName: 'rg-maze-prod-Kodi'
+  location: 'eastus'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+pool:
+  vmImage: 'Local'
 
-    steps:
-      - name: 'Checkout Code'
-        uses: actions/checkout@v3
+steps:
+- checkout: self
 
-      - name: 'Azure Login'
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: 'Deploy ARM Template'
-        uses: azure/arm-deploy@v2
-        with:
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          template: ./azuredeploy.json
-          parameters: >
-            webAppName1=mywebapp1
-            webAppName2=mywebapp2
-            dbServerName=myflexdb1
-            dbAdminUsername=${{ secrets.DB_ADMIN_USERNAME }}
-            dbAdminPassword=${{ secrets.DB_ADMIN_PASSWORD }}
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'KodiLimitedServiceConnection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az group create --name $(resourceGroupName) --location $(location)
+      az deployment group create \
+        --resource-group $(resourceGroupName) \
+        --template-file azuredeploy.json \
+        --parameters \
+            webAppName1=$(webAppName1) \
+            webAppName2=$(webAppName2) \
+            dbServerName=$(dbServerName) \
+            dbAdminUsername=$(dbAdminUsername) \
+            dbAdminPassword=$(dbAdminPassword) \
+            location=$(location)
+    displayName: 'Deploy ARM template'
