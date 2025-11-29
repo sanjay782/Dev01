@@ -8,7 +8,7 @@ variables:
   dbAdminUsername: 'dbadminuser'
   dbAdminPassword: '$dbAdminPassword' # secret variable in DevOps
   resourceGroupName: 'rg-maze-prod-Kodi'
-  location: 'eastus'
+  location: 'uksouth'
 
 pool: 'Local'
 
