@@ -2,9 +2,9 @@ trigger:
 - main
 
 variables:
-  webAppName1: 'mywebapp1'
-  webAppName2: 'mywebapp2'
-  dbServerName: 'myflexdb1'
+  webAppName1: 'kodi-web'
+  webAppName2: 'kodi-api'
+  dbServerName: 'kodi-db1'
   dbAdminUsername: 'dbadminuser'
   dbAdminPassword: '$(dbAdminPassword)' # secret variable in DevOps
   resourceGroupName: 'rg-maze-prod-Kodi'
