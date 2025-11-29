@@ -10,8 +10,8 @@ variables:
   resourceGroupName: 'rg-maze-prod-Kodi'
   location: 'eastus'
 
-pool:
-  vmImage: 'Local'
+pool: 'Local'
+
 
 steps:
 - checkout: self
