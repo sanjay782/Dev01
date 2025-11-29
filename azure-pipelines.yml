@@ -25,7 +25,7 @@ steps:
       az group create --name $(resourceGroupName) --location $(location)
       az deployment group create \
         --resource-group $(resourceGroupName) \
-        --template-file azuredeploy.json \
+        --template-file template.json \
         --parameters \
             webAppName1=$(webAppName1) \
             webAppName2=$(webAppName2) \
