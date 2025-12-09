@@ -6,7 +6,7 @@ variables:
   webAppName2: 'kodi-api'
   dbServerName: 'kodi-db1'
   dbAdminUsername: 'dbadminuser'
-  dbAdminPassword: '$(dbAdminPassword)' # secret variable in DevOps
+  dbAdminPassword: 'Wipro1234' # secret variable in DevOps
   resourceGroupName: 'rg-maze-prod-Kodi'
   location: 'uksouth'
 
